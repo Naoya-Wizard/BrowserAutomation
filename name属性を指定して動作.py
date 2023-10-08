@@ -18,7 +18,7 @@ Raises:
 - Exception: 指定したタイムアウト時間内にエレメントを見つけることができなかった場合。
 """
 
-
+#テキストやファイル、画像などをアップロードする
 def send_keys_to_element_by_name(driver, name, keys, timeout=60, scroll_amount=300):
     start_time = time.time()
     while True:
@@ -33,7 +33,7 @@ def send_keys_to_element_by_name(driver, name, keys, timeout=60, scroll_amount=3
             continue
 
 
-
+# クリックする
 def click_to_element_by_name(driver, name, timeout=60, scroll_amount=300):
     start_time = time.time()
     while True:
@@ -51,6 +51,7 @@ def click_to_element_by_name(driver, name, timeout=60, scroll_amount=300):
 
 from selenium.webdriver.support.ui import Select
 
+# セレクトボックスを選択する（option_value）
 def select_to_element_by_name(driver, name, option_value, timeout=60, scroll_amount=300):
     start_time = time.time()
     while True:
