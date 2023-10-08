@@ -5,7 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 # ブラウザのインスタンスを起動する
-driver = webdriver.Chrome()
+# ChromeDriverManagerを使用して、最新のChromeDriverを自動的にダウンロード・インストールし、それを使用してChromeのWebDriverインスタンスを起動します。
+driver = webdriver.Chrome(ChromeDriverManager().install())
 
 # ページのナビゲーション:
 # ページへの移動
