@@ -4,3 +4,4 @@
 ## 環境・バージョン情報
 
 - **Selenium**: 4.9.1
+- **webdriver-manager**: 3.8.6
