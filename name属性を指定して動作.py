@@ -64,3 +64,20 @@ def select_to_element_by_name(driver, name, option_value, timeout=60, scroll_amo
         except:
             driver.execute_script(f"window.scrollBy(0, {scroll_amount});")
             continue
+
+# セレクトボックスを選択する（option_text）
+def select_option_by_visible_text(driver, name, option_text, timeout=60, scroll_amount=300):
+    start_time = time.time()
+    while True:
+        if time.time() - start_time > timeout:
+            raise Exception(f"Timeout on waiting for select box with NAME '{name}'.")
+        try:
+            # 指定されたname属性を持つselect要素を見つける
+            select_element = Select(driver.find_element(By.NAME, name))
+            # 表示されているテキストに基づいてオプションを選択
+            select_element.select_by_visible_text(option_text)
+            break
+        except Exception as e:
+            # 要素が見つからない場合、ページをスクロールして再試行
+            driver.execute_script(f"window.scrollBy(0, {scroll_amount});")
+            continue
