@@ -66,7 +66,7 @@ def select_to_element_by_name(driver, name, option_value, timeout=60, scroll_amo
             continue
 
 # セレクトボックスを選択する（option_text）
-def select_option_by_visible_text(driver, name, option_text, timeout=60, scroll_amount=300):
+def select_option_by_name_and_visible_text(driver, name, option_text, timeout=60, scroll_amount=300):
     start_time = time.time()
     while True:
         if time.time() - start_time > timeout:
