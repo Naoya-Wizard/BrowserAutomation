@@ -59,3 +59,28 @@ def click_element_by_normalized_text(driver, text, timeout=60, scroll_amount=300
         except:
             # その他の例外が発生した場合
             continue
+
+def click_element_normalized_text_element_by_index(driver, text, index=0, timeout=60, scroll_amount=300):
+    start_time = time.time()
+    while True:
+        if time.time() - start_time > timeout:
+            raise Exception(f"Timeout on waiting for element with normalized text '{text}'.")
+        try:
+            # normalize-space()を使用して空白を無視し、テキストに一致するすべての要素を取得
+            elements = driver.find_elements(By.XPATH, f"//*[normalize-space(text()) = '{text}']")
+            if len(elements) > index:
+                # 指定されたインデックスの要素をクリック
+                elements[index].click()
+                break
+            else:
+                # 指定インデックスの要素がない場合はスクロール
+                driver.execute_script(f"window.scrollBy(0, {scroll_amount});")
+        except NoSuchElementException:
+            # 要素が見つからない場合はスクロール
+            driver.execute_script(f"window.scrollBy(0, {scroll_amount});")
+        except ElementClickInterceptedException:
+            # 要素がクリック可能になるまで少し待つ
+            time.sleep(1)
+        except:
+            # その他の例外が発生した場合
+            continue
