@@ -68,6 +68,27 @@ def click_element_by_name_and_index(driver, name, index, timeout=60, scroll_amou
             continue
 
 
+# indexを指定してsend_keysする
+def send_keys_element_by_name_and_index(driver, name, index, keys, timeout=60, scroll_amount=300):
+    start_time = time.time()
+    while True:
+        if time.time() - start_time > timeout:
+            raise Exception(f"Timeout on waiting for element(s) with NAME '{name}'.")
+        try:
+            # 指定されたname属性を持つ全ての要素を取得
+            elements = driver.find_elements(By.NAME, name)
+            # 指定されたインデックスの要素をクリック
+            elements[index].send_keys(keys)
+            break
+        except IndexError:
+            # 指定されたインデックスの要素が存在しない場合
+            raise Exception(f"No element found at index {index} with NAME '{name}'.")
+        except Exception as e:
+            # 要素が見つからない場合、ページをスクロールして再試行
+            driver.execute_script(f"window.scrollBy(0, {scroll_amount});")
+            continue
+
+
 from selenium.webdriver.support.ui import Select
 
 # セレクトボックスを選択する（option_value）
